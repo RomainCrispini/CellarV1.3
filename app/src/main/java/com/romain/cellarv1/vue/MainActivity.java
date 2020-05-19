@@ -28,14 +28,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapFragment mapFragment;
     private GoogleMap map;
 
-    // Boutons Zoom IN Out Map
+    // Boutons Zoom In Out Map
     private ImageButton zoomIn, zoomOut;
 
 
@@ -73,12 +76,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
         //searchLocation();
         //loadMap();
 
 
     }
 
+    /**
+     * Commande les boutons zoom de la map
+     * @param view
+     */
     public void onZoom(View view) {
         if(view.getId() == R.id.zoomIn) {
             map.animateCamera(CameraUpdateFactory.zoomIn());
@@ -300,13 +308,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
          */
 
+
+
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.champ_wine);
         LatLng nancy = new LatLng(48.687646, 6.181732);
         MarkerOptions markerOptions = new MarkerOptions().position(nancy).title("Nancy").icon(icon);
         map.addMarker(markerOptions);
 
-        map.moveCamera(CameraUpdateFactory.newLatLng(nancy));
-        googleMap.moveCamera(CameraUpdateFactory.zoomBy(2));
+        // Initialisation default position sur Nancy
+        CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(nancy, 5);
+        map.moveCamera(cameraPosition);
+        map.animateCamera(cameraPosition);
 
     }
 

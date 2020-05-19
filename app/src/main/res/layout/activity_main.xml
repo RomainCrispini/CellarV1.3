@@ -14,7 +14,12 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="55dp">
+        android:layout_marginBottom="55dp"
+        tools:cameraBearing="112.5"
+        tools:cameraTargetLat="0.796923"
+        tools:cameraTargetLng="0.922433"
+        tools:cameraTilt="30"
+        tools:cameraZoom="13">
 
     </fragment>
 
