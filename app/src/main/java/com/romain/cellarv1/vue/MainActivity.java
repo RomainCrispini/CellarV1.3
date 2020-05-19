@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -309,14 +310,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
          */
 
 
+        // Nouvelles dimensions du marker
+        int height = 80;
+        int width = 80;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.champ_wine);
+        Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+        BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.champ_wine);
         LatLng nancy = new LatLng(48.687646, 6.181732);
-        MarkerOptions markerOptions = new MarkerOptions().position(nancy).title("Nancy").icon(icon);
+        MarkerOptions markerOptions = new MarkerOptions().position(nancy).title("NomDuVin").icon(smallMarkerIcon);
         map.addMarker(markerOptions);
 
         // Initialisation default position sur Nancy
-        CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(nancy, 5);
+        LatLng defaultPosition = new LatLng(48.687646, 6.181732);
+        CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(defaultPosition, 5);
         map.moveCamera(cameraPosition);
         map.animateCamera(cameraPosition);
 
